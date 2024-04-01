@@ -1,0 +1,25 @@
+.navbar {
+  position: relative;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  transition: top 0.5s ease;
+}
+
+.navbar.animate {
+  top: 0;
+}
+.menu {
+  overflow: hidden;
+  animation: smoothOpen 2s ease-in-out;
+}
+@keyframes smoothOpen {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    opacity: 1;
+    height: 40vh;
+  }
+}

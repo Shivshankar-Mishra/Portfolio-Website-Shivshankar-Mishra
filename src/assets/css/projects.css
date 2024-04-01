@@ -1,0 +1,40 @@
+details {
+  overflow: hidden;
+}
+
+details[open] summary ~ * {
+  animation: smoothOpen 2s ease-in-out forwards;
+}
+
+details:not([open]) summary ~ * {
+  animation: smoothClose 2s ease-in-out forwards;
+}
+
+@keyframes smoothOpen {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    opacity: 1;
+    height: 60vh;
+  }
+}
+@keyframes smoothClose {
+  0% {
+    opacity: 1;
+    height: 60vh;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+  }
+}
+
+details summary {
+  cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}

@@ -1,0 +1,41 @@
+.slider-container {
+  overflow: hidden;
+  width: 100%; /* Adjust as needed */
+}
+
+.slider {
+  display: flex;
+  width: 100%; /* Adjust as needed */
+  white-space: nowrap;
+  animation: slideLeft 15s linear infinite;
+}
+
+.slide {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding-right: 20px;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media only screen and (max-width: 680px){
+	.slider{
+    animation: slideLeft 20s linear infinite;
+    /* animation: slideLeft 5s linear infinite; */
+  }
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(20px);
+    }
+    100% {
+      transform: translateX(-1010%);
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.leftToRight {
+  position: relative;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  transition: left 1s ease-out;
+}
+
+.leftToRight.leftAnimate {
+  left: 0;
+}
+
+.rightToLeft {
+  position: relative;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  transition: right 1s ease-out;
+}
+
+.rightToLeft.rightAnimate {
+  right: 0;
+}
+
+.bottomToTop {
+  position: relative;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: top 0.5s ease-out;
+}
+
+.bottomToTop.topAnimate {
+  top: 0;
+  opacity: 1;
+}
