@@ -23,15 +23,12 @@
 }
 
 .bottomToTop {
-  position: relative;
-  top: 100px;
-  left: 0;
-  width: 100%;
   opacity: 0;
-  transition: top 0.5s ease-out;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transform: translateY(100px); /* Initial position */
 }
 
 .bottomToTop.topAnimate {
-  top: 0;
   opacity: 1;
+  transform: translateY(0); /* Final position */
 }

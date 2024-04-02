@@ -17,6 +17,7 @@ import {
   SiSpring,
   SiSpringboot,
   SiMysql,
+  SiMongodb,
 } from "react-icons/si";
 import { TbBrandJavascript, TbBrandReact, TbSql } from "react-icons/tb";
 import { useRef } from "react";
@@ -29,7 +30,7 @@ const Skills = () => {
     <>
       <section
         ref={sectionRef}
-        className={`relative w-screen overflow-hidden flex flex-col justify-center items-center gap-[4rem] mt-10 md:mt-0 px-14 py-[5%] bottomToTop ${
+        className={`relative Skills w-screen overflow-hidden flex flex-col justify-center items-center gap-[4rem] mt-10 md:mt-0 px-14 py-[5%] bottomToTop ${
           useInViewport(sectionRef) ? "topAnimate" : ""
         }`}
       >
@@ -120,6 +121,12 @@ const Skills = () => {
           </div>
           <div className="w-[45vw] md:w-[15rem] h-[6rem] bg-[#f2f1ef] border-2 border-black flex flex-row justify-center items-center gap-2 group hover:bg-black  px-3 py-1 transition-all duration-300">
             <SiMysql className="text-7xl group-hover:text-orange-600 transition-all duration-300" />
+          </div>
+          <div className="w-[45vw] md:w-[15rem] h-[6rem] bg-[#f2f1ef] border-2 border-black flex flex-row justify-center items-center gap-2 group hover:bg-black  px-3 py-1 transition-all duration-300">
+            <SiMongodb className="text-[30px] md:text-5xl group-hover:text-orange-600 transition-all duration-300" />
+            <span className="text-[16px] md:text-2xl font-bold group-hover:text-orange-600 transition-all duration-300">
+              MongoDb
+            </span>
           </div>
           <div className="w-[45vw] md:w-[15rem] h-[6rem] bg-[#f2f1ef] border-2 border-black flex flex-row justify-center items-center gap-2 group hover:bg-black  px-3 py-1 transition-all duration-300">
             <SiSpring className="text-[30px] md:text-5xl group-hover:text-orange-600 transition-all duration-300" />
