@@ -11,7 +11,7 @@ import OtherWebDevImage from "../assets/images/otherwebdevimage.jpeg";
 import Starwhite from "../assets/images/starwhite.svg";
 import Linkdin from "../assets/images/linkdinicon.svg";
 import Insta from "../assets/images/instagramicon.svg";
-import Twitter from "../assets/images/twittericon.svg";
+import Twitter from "../assets/images/xtwitter.svg";
 import TaskCanvas from "../assets/images/taskcanvas.png";
 import Numpicker from "../assets/images/numpickergame.png";
 

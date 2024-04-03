@@ -77,7 +77,7 @@ const Footer = () => {
             className="flex flex-row justify-center items-center group transition-all duration-300"
           >
             <div className="w-10 h-10 bg-transparent border-[1px] flex flex-row justify-center items-center border-[#969186] rounded-full group-hover:scale-125 transition-all duration-300">
-              <img src={Twitter} alt="linkedin icon" className="w-8" />
+              <img src={Twitter} alt="linkedin icon" className="" />
             </div>
           </a>
           <a
