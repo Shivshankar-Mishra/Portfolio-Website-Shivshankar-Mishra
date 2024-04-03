@@ -3,17 +3,69 @@ import "../assets/css/animation.css";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import app from "../firebase/config";
 import Button from "./Button";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useInViewport from "./useInViewPort";
 
 const Form = () => {
-  const { Star1, formData, handleChange, resetFormData, sendEmail } =
+  const { Star1, formData, handleChange: contextHandleChange, resetFormData, sendEmail } =
     useStore();
   const sectionRef = useRef(null);
+  const [errors, setErrors] = useState({});
+
+  const validateName = (name) => {
+    if (!name.trim().match(/^[a-zA-Z\s]+$/)) {
+      return "Name can only contain alphabets and spaces.";
+    }
+    return "";
+  };
+
+  const validateSubject = (subject) => {
+    if (!subject.trim()) {
+      return "Subject is required.";
+    }
+    return "";
+  };
+
+  const validateEmail = (email) => {
+    if (!email.trim()) {
+      return "Email is required.";
+    }
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return "Please enter a valid email address.";
+    }
+    // You can add further validation to check if the email exists
+    return "";
+  };
+
+  const validateDescription = (description) => {
+    if (!description.trim()) {
+      return "Description is required.";
+    }
+    if (description.length > 200) {
+      return "Description must be less than 200 characters.";
+    }
+    return "";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const nameError = validateName(formData.name);
+      const subjectError = validateSubject(formData.subject);
+      const emailError = validateEmail(formData.email);
+      const descriptionError = validateDescription(formData.description);
+      
+      if (nameError || subjectError || emailError || descriptionError) {
+        setErrors({
+          name: nameError,
+          subject: subjectError,
+          email: emailError,
+          description: descriptionError,
+        });
+        return;
+      }
+
+      // If no errors, proceed with form submission
       const db = getFirestore(app);
       await addDoc(collection(db, "queries"), formData);
       sendEmail(formData);
@@ -22,6 +74,30 @@ const Form = () => {
       console.error("Error submitting form:", error);
       alert("Error submitting form. Please try again later.");
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    let error = "";
+
+    switch (name) {
+      case "name":
+        error = validateName(value);
+        break;
+      case "subject":
+        error = validateSubject(value);
+        break;
+      case "email":
+        error = validateEmail(value);
+        break;
+      case "description":
+        error = validateDescription(value);
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
   };
 
   return (
@@ -55,10 +131,12 @@ const Form = () => {
               name="name"
               id="name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={contextHandleChange}
+              onBlur={handleBlur}
               className="w-[75vw] md:w-[35vw] h-12 bg-transparent border-2 border-black px-4 py-3 text-sm text-[#333333] focus-within:border-none"
               required
             />
+            {errors.name && <span className="text-red-500">{errors.name}</span>}
           </div>
           <div className="flex flex-col justify-center items-start gap-2">
             <label htmlFor="subject" className="text-base text-black font-bold">
@@ -70,10 +148,12 @@ const Form = () => {
               name="subject"
               id="subject"
               value={formData.subject}
-              onChange={handleChange}
+              onChange={contextHandleChange}
+              onBlur={handleBlur}
               className="w-[75vw] md:w-[35vw] h-12 bg-transparent border-2 border-black px-4 py-3 text-sm text-[#333333] focus-within:border-none"
               required
             />
+            {errors.subject && <span className="text-red-500">{errors.subject}</span>}
           </div>
           <div className="flex flex-col justify-center items-start gap-2">
             <label
@@ -88,10 +168,12 @@ const Form = () => {
               name="email"
               id="workmail"
               value={formData.email}
-              onChange={handleChange}
+              onChange={contextHandleChange}
+              onBlur={handleBlur}
               className="w-[75vw] md:w-[35vw] h-12 bg-transparent border-2 border-black px-4 py-3 text-sm text-[#333333] focus-within:border-none"
               required
             />
+            {errors.email && <span className="text-red-500">{errors.email}</span>}
           </div>
           <div className="flex flex-col justify-center items-start gap-2">
             <label
@@ -105,12 +187,14 @@ const Form = () => {
               id="description"
               name="description"
               value={formData.description}
-              onChange={handleChange}
+              onChange={contextHandleChange}
+              onBlur={handleBlur}
               maxLength="5000"
               placeholder="type your description here..."
               className="w-[75vw] md:w-[35vw] h-16 bg-transparent border-2 border-black px-4 py-3 text-sm text-[#333333] focus-within:border-none"
               required
             ></textarea>
+            {errors.description && <span className="text-red-500">{errors.description}</span>}
           </div>
           <div className="flex flex-row justify-center items-center mt-5">
             <Button
